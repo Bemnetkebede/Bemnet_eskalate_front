@@ -1,17 +1,25 @@
+import { useContext } from 'react';
 import Logo from '../assets/img/amazonlogo.png'
 import flag from '../assets/img/flag.jpg'
 import { IoMdSearch } from "react-icons/io";
 import { LuShoppingCart } from "react-icons/lu";
 import { SlLocationPin } from "react-icons/sl";
 import { Link } from 'react-router-dom';
+import { DataContext } from './DataProvider/DataProvider';
+
+
 const Header = () => {
+    
+    
+    const [{basket} , dispatch]= useContext(DataContext)
+    
     return (
         <>
-            <div className="flex bg-black px-4 pt-2 pb-3 ">
-                <a className=' hover:border hover:border-white'>
+            <div className="md:flex bg-black px-4 pt-2 pb-3  shadow-custom ">
+                <a className=' hover:border hover:border-white flex justify-center align-items-center'>
                     <img src={Logo} alt="" className='w-24 pt-3' />
                 </a>
-                <div className=' hover:border hover:border-white'> 
+                <div className=' hover:border hover:border-white flex justify-center align-items-center'> 
                     <a className=' text-white '>
                         <span className='text-xs opacity-80 pl-9'>Deliver to</span><br/>
                         <div className='flex'>
@@ -36,6 +44,7 @@ const Header = () => {
                     
                 </div>
                 {/* right side */}
+                <div className=' flex justify-center align-items-center'>
                 <div className='text-white flex space-x-4 '>
                 <div className='flex hover:border hover:border-white '>
                     <img src={flag} alt="" className='w-6 h-4 mt-5' />
@@ -55,13 +64,13 @@ const Header = () => {
                         & Orders
                     </span>
                 </Link>
-                <a href="" className='relative mt-4'>
-                <span className='text-[rgb(232,151,59)] font-bold  absolute -top-2 pl-[13px] '> 0 </span>
+                <Link to="/cart" className='relative mt-4'>
+                <span className='text-[rgb(232,151,59)] font-bold  absolute -top-2 pl-[13px] '> {basket.length} </span>
                     <LuShoppingCart className='h-6 w-8 mt-0 '/>
                     
-                </a>
+                </Link>
                 </div>
-            
+                </div>
 
             </div>
         </>

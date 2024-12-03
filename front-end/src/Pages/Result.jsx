@@ -4,9 +4,11 @@ import { ProductUrl } from "../Api/endpoint"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import ProductCard from "../Components/products/ProductCard"
+import Loader from "../Components/Loader/Loader"
 const Result = () => {
     const {CatagoryName} = useParams()
     const [products , setProducts] = useState([])
+    const [Loading , setLoading] = useState(false)
     const categoryMapping = {
         "Jewellery": "jewelery",
         "Men's Clothing": "men's clothing",
@@ -18,13 +20,17 @@ const Result = () => {
     const mappedCategory = categoryMapping[CatagoryName] || CatagoryName.toLowerCase();
 
     useEffect(()=>{
-
+        setLoading(true)
         axios.get(`${ProductUrl}/products/category/${mappedCategory}`)
         .then((res)=>{setProducts(res.data)
+            setLoading(false)
         console.log(`${ProductUrl}/products/category/${mappedCategory}`)
-        }).catch((err)=>(console.log(err)))
+        }).catch((err)=>{console.log(err)
+            setLoading(false)
+        })
     },[])
     return (
+        Loading ? <Loader/> : (
         <LayOut>
             <div className="font-bold mb-6 ml-6 mt-2">Results</div>
             <p className="mb-6 ml-6">Catagory/{CatagoryName}</p>
@@ -37,7 +43,7 @@ const Result = () => {
             }
             </div>
             
-        </LayOut>
+        </LayOut> )
     )
 }
 

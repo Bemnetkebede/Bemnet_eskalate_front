@@ -4,7 +4,7 @@ import CatagoryCard from './catagoryCard';
 const Catagory = () => {
     console.log(CatagoryInfo)
     return (
-        <div className="grid grid-cols-4 gap-4 relative mt-[-13%] ml-10 ">
+        <div className="grid md:grid-cols-4 grid-cols-2 gap-4 relative mt-[-13%] place-items-center my-10">
             {
                 
                     CatagoryInfo?.map((infos) => (
