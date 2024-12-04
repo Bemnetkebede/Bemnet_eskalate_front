@@ -52,7 +52,7 @@ const Header = () => {
                         <option value="" className='text-sm'> EN</option>
                     </select>
                 </div>
-                <Link to="/SignUp" className='hover:border hover:border-white'>
+                <Link to="/Auth" className='hover:border hover:border-white'>
                     <p className='text-sm opacity-90'>Sign in</p>
                     <span>
                         Account & Lists

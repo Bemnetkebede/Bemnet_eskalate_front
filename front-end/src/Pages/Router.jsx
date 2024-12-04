@@ -1,5 +1,5 @@
 import Landing from "./Landing/Landing";
-import SignUp from "./Auth/SignUp";
+import Auth from "./Auth/Auth";
 import Orders from "./Orders/Orders";
 import Payment from "./Payment/Payment";
 import ProductDetails from './ProductDetail/ProductDetail'
@@ -14,7 +14,7 @@ const Routering = () => {
         <BrowserRouter>
         <Routes>
             <Route path="/" element={<Landing/>}/>
-            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/Auth" element={<Auth />} />
             <Route path="/Orders" element={<Orders />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/ProductDetails" element={<ProductDetails />} />
