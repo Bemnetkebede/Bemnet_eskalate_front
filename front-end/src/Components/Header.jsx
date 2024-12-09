@@ -6,12 +6,13 @@ import { LuShoppingCart } from "react-icons/lu";
 import { SlLocationPin } from "react-icons/sl";
 import { Link } from 'react-router-dom';
 import { DataContext } from './DataProvider/DataProvider';
+import {auth} from '../Utility/firebase'
 
 
 const Header = () => {
     
     
-    const [{basket} , dispatch]= useContext(DataContext)
+    const [{user, basket} , dispatch]= useContext(DataContext)
     
     return (
         <>
@@ -52,11 +53,44 @@ const Header = () => {
                         <option value="" className='text-sm'> EN</option>
                     </select>
                 </div>
-                <Link to="/Auth" className='hover:border hover:border-white'>
-                    <p className='text-sm opacity-90'>Sign in</p>
-                    <span>
-                        Account & Lists
-                    </span>
+                <Link to={!user && "/Auth"} className='hover:border hover:border-white'>
+                    <div>
+                        {
+                            user ? (
+                                
+                                    <div>
+                                    <p>Hello {user?.email.split('@')[0]}</p>
+                                    <span
+                                        onClick={() => {
+                                        auth.signOut()
+                                            .then(() => {
+                                            dispatch({
+                                                type: 'SET_USER', // Fixed: Should be `type` in lowercase
+                                                user: null,
+                                            });
+                                            console.log("User logged out successfully");
+                                            })
+                                            .catch((error) => {
+                                            console.error("Error during logout:", error);
+                                            });
+                                        }}
+                                        className="cursor-pointer"
+                                    >
+                                        LogOut
+                                    </span>
+                                    </div>
+
+                            ) : (
+                                <>
+                                    <p className='text-sm opacity-90'>Sign in</p>
+                                    <span>Account & Lists</span>
+                                </>
+
+                            )
+                        }
+                    </div>
+                    
+                    
                 </Link>
                 <Link to="/Orders" className='hover:border hover:border-white'>
                     <p className='text-sm opacity-90'>return </p>
