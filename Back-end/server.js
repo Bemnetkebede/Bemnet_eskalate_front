@@ -14,7 +14,7 @@ app.get('/' , (req,res)=>{
 })
 
 app.post('/payment/create', async (req, res) => {
-    const total = req.query.total;
+    const total = parseInt(req.query.total);
     if (total > 0) {
         const paymentIntent = await stripe.paymentIntents.create({
             amount: total,
@@ -34,8 +34,8 @@ app.post('/payment/create', async (req, res) => {
 
 
 
-app.listen(6000,(err)=>{
+app.listen(4000,(err)=>{
     if (err){ console.log(err);}
-    console.log('server is running on port 6000')
+    console.log('server is running on port 4000')
 
 })

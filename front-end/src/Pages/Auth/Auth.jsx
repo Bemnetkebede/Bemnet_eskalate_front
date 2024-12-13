@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate , useLocation } from 'react-router-dom';
 import am from '../../assets/img/a.png';
 import { auth } from '../../Utility/firebase';
 import { Type } from '../../Utility/action.type';
@@ -10,12 +10,14 @@ import { DataContext } from '../../Components/DataProvider/DataProvider';
 
 
 
+
 const SignUp = () => {
 
     const [email , setEmail] = useState('')
     const [password , setPassword] = useState('')
     const [error,setError]=useState('')
     const navigate = useNavigate()
+    const navStateData = useLocation()
     const [loading,setLoading]=useState({
         signIn:(false),
         signUp:(false)
@@ -25,10 +27,6 @@ const SignUp = () => {
     const [state, dispatch] = useContext(DataContext);
     const { user } = state; 
 
-    
-    
-    console.log(dispatch);
-    
     const authHandler=async(e)=>{
         e.preventDefault()
         console.log(e.target.name)
@@ -43,7 +41,7 @@ const SignUp = () => {
                     
                 })
                 setLoading({...loading,signIn:false})
-                navigate('/')
+                navigate(navStateData?.state?.redirect || '/')
             }).catch((err)=>{setError(err.message)
                 console.log(err)
                 setLoading({...loading,signIn:false})
@@ -59,7 +57,7 @@ const SignUp = () => {
                     user:userInfo.user
                 })
                 setLoading({...loading,signUp:false})
-                navigate('/')
+                navigate(navStateData?.state?.redirect || '/')
             }).catch((err)=>{setError(err.message)
                 setLoading({...loading,signUp:false})
             })
@@ -75,6 +73,11 @@ const SignUp = () => {
             <div className='border border-black border-opacity-50 p-7 m-[-2%]'>
                 <div className=''>
                 <p  className='mb-3 text-3xl font-semibold'>Sign In</p>
+                {
+                    navStateData?.state?.msg && (
+                        <small className='text-red-600 p-10'>{ navStateData?.state?.msg}</small>
+                    )
+                }
                 <form action="" className='space-y-3 '>
                     <div className='space-y-2 '>
                         <label htmlFor="email" className='font-semibold'>E-mail</label><br/>
